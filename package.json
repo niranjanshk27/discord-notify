@@ -1,0 +1,41 @@
+{
+  "name": "discord-notify",
+  "version": "0.0.1",
+  "description": "Notify git action in discord channel",
+  "keywords": [
+    "discord",
+    "notification",
+    "git",
+    "action"
+  ],
+  "homepage": "https://github.com/niranjanshk27/discord-notify#readme",
+  "bugs": {
+    "url": "https://github.com/niranjanshk27/discord-notify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niranjanshk27/discord-notify.git"
+  },
+  "license": "ISC",
+  "author": "NiranjanShk",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "axios": "^1.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.3",
+    "@vercel/ncc": "^0.38.3",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3"
+  }
+}

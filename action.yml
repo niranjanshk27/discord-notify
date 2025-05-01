@@ -1,0 +1,33 @@
+name: "Send discord notification"
+description: "Post a message in discord"
+author: "NiranjanShk"
+
+inputs:
+  WEBHOOK:
+    description: "Discord webhook"
+    required: true
+  CONTENT:
+    description: "Message you want to send"
+    required: false
+  EMBEDS:
+    description: "boolen to indicate you want to send embeds. Not a normal text"
+    required: false
+  TITLE:
+    description: "title foe the embeds"
+    required: false
+  ANDROID_RESULT:
+    description: "android build result"
+    required: false
+  IOS_RESULT:
+    description: "ios build result"
+    required: false
+  CHANGELOG:
+    description: "change logs link"
+    required: false
+  RELEASE_VERSION:
+    description: "version that is going to release"
+    required: false
+
+runs:
+  using: node22
+  main: dist/index.js
