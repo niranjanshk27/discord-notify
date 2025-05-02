@@ -87,7 +87,8 @@ describe("Discord Notification Action", () => {
       ios_result: "failure",
       changelog: true,
       release_version: "v1.0.0",
-      embeds: true
+      embeds: true,
+      result: "failure"
     };
 
     test("should build correct embed payload with all inputs", () => {
@@ -101,7 +102,8 @@ describe("Discord Notification Action", () => {
       expect(embed.description).toContain("test-repo v1.0.0");
       expect(embed.description).toContain("Android - :white_check_mark:");
       expect(embed.description).toContain("iOS - :x: :no_entry:");
-      
+      expect(embed.description).toContain("Build - :x: :no_entry:");
+
       // Should include changelog field
       const changelogField = embed.fields.find((f: any) => f.name === "Changelogs");
       expect(changelogField).toBeDefined();
@@ -122,6 +124,7 @@ describe("Discord Notification Action", () => {
       expect(payload.content).toContain("Internal Release: test-repo v1.0.0");
       expect(payload.content).toContain("Android: Success ✅");
       expect(payload.content).toContain("iOS: Failed ❌");
+      expect(payload.content).toContain("Build: Failed ❌");
     });
 
     test("should use failure color when any platform has failed", () => {
