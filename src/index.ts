@@ -8,7 +8,7 @@ export async function run(): Promise<void> {
   try {
     core.debug("Getting Inputs");
     const inputs = getInputs();
-    
+
     if (!inputs.webhook) {
       throw new Error("Webhook URL is required");
     }
@@ -30,7 +30,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
   const ctx = github.context;
   const { owner, repo } = ctx.repo;
   const { serverUrl, runId } = ctx;
-  
+
   const repoUrl = `${serverUrl}/${owner}/${repo}`;
   const workflowUrl = `${repoUrl}/actions/runs/${runId}`;
 
@@ -44,6 +44,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
   const iosSuccess = inputs.ios_result === "success";
   const allSuccess = androidSuccess && iosSuccess;
   const anyFailure = (inputs.android_result && !androidSuccess) || (inputs.ios_result && !iosSuccess);
+  const result = inputs.result === "success";
 
   let embed: Record<string, any> = {
     color: anyFailure ? FAILURE_COLOR : (allSuccess ? SUCCESS_COLOR : NEUTRAL_COLOR),
@@ -53,7 +54,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
   };
 
   // Build description according to platform
-  if (inputs.android_result || inputs.ios_result) {
+  if (inputs.android_result || inputs.ios_result || inputs.result) {
     let platformStatus = '\n\n';
 
     if(inputs.android_result) {
@@ -62,6 +63,10 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
 
     if(inputs.ios_result) {
       platformStatus += `iOS - ${iosSuccess ? ":white_check_mark:" : ":x: :no_entry:"}`
+    }
+
+    if (inputs.result) {
+      platformStatus += `Build - ${result ? ":white_check_mark:" : ":x: :no_entry:"}`
     }
 
     // Only add platform status if we have results
@@ -92,6 +97,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
 
   // If embeds aren't enabled, create plain text content instead
   let content = '';
+
   if (!inputs.embeds) {
     content = `${inputs.content || "Internal Release"}: ${repo} ${inputs.release_version || ""}\n`
 
@@ -101,6 +107,10 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
 
     if (inputs.ios_result) {
       content += `iOS: ${iosSuccess ? "Success ✅" : "Failed ❌"}\n`;
+    }
+
+    if (inputs.result) {
+      content += `Build: ${result ? "Success ✅" : "Failed ❌"}\n`;
     }
 
     content += `Workflow: ${workflowUrl}`
