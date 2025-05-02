@@ -1,5 +1,4 @@
 import * as core from "@actions/core";
-import * as github from "@actions/github";
 import axios from "axios";
 import { getInputs, Inputs, emojiOption } from "../src/inputs";
 import { buildPayload } from "../src/index"; // Assuming the buildPayload function is exported
