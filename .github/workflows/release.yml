@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Update Version and Create Tag
+        run: |
+          # Get current version
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Update patch version using yarn version (this will create both commit and tag)
+          yarn version --patch
+          
+          # Get new version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "New version: $NEW_VERSION"
+          
+          # Push changes and tag
+          git push
+          git push --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send Discord Notification
+        uses: ./
+        with:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TITLE: "New Release"
+          EMBEDS: "true"
+          CONTENT: "🚀 New version v$(node -p \"require('./package.json').version\") has been released!"
+          RESULT: "success"
+
