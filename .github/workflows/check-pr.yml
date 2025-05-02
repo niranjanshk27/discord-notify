@@ -1,0 +1,45 @@
+name: Check PR
+
+on:
+  pull_request_target:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Running test
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Send Discord Notification
+        if: success()
+        uses: ./
+        with:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TITLE: "PR Check Status"
+          EMBEDS: "true"
+          CONTENT: "PR #${{ github.event.pull_request.number }} Check Results"
+          RESULT: "success"
