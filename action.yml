@@ -1,6 +1,9 @@
 name: "Send discord notification"
 description: "Post a message in discord"
 author: "NiranjanShk"
+branding:
+  icon: 'anchor’
+  color: 'blue'
 
 inputs:
   WEBHOOK:
