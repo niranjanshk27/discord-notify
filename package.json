@@ -1,6 +1,6 @@
 {
   "name": "discord-announcement",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Notify git action in discord channel",
   "keywords": [
     "discord",
