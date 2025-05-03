@@ -1,6 +1,5 @@
-name: "Send discord notification"
+name: "Discord notify"
 description: "Post a message in discord"
-author: "NiranjanShk"
 branding:
   icon: 'anchor’
   color: 'blue'
