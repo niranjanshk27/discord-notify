@@ -1,4 +1,4 @@
-name: "Discord announce"
+name: "Discord announcement"
 description: "Post a message in discord"
 branding:
   icon: "anchor"
