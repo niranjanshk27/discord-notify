@@ -1567,9 +1567,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-notify@workspace:.":
+"discord-announcement@workspace:.":
   version: 0.0.0-use.local
-  resolution: "discord-notify@workspace:."
+  resolution: "discord-announcement@workspace:."
   dependencies:
     "@actions/core": "npm:^1.11.1"
     "@actions/github": "npm:^6.0.0"
