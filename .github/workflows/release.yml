@@ -30,11 +30,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Get Release Version
-        run: |
-          appVersion=$(node -p "require('./package.json').version")
-          echo "RELEASE_VERSION=v$(appVersion)" >> $GITHUB_ENV
-
       - name: Configure Git
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -51,6 +46,7 @@ jobs:
           
           # Get new version
           NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=v${appVersion}" >> $GITHUB_ENV
           echo "New version: $NEW_VERSION"
           
           # Push changes and tag
@@ -64,11 +60,11 @@ jobs:
         uses: ./
         with:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TITLE: "🚀 New version ${{ env.RELEASE_VERSION }}"
+          TITLE: "🚀 New version ${{ env.NEW_VERSION }}"
           EMBEDS: "true"
-          CONTENT: "🚀 New version ${{ env.RELEASE_VERSION }} has been released!"
+          CONTENT: "🚀 New version ${{ env.NEW_VERSION }} has been released!"
           RESULT: "success"
           CHANGELOG: "true"
-          RELEASE_VERSION: "${{ env.RELEASE_VERSION }}"
+          RELEASE_VERSION: "${{ env.NEW_VERSION }}"
           
 
