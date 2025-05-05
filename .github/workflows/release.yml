@@ -46,7 +46,7 @@ jobs:
           
           # Get new version
           NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "NEW_VERSION=v${appVersion}" >> $GITHUB_ENV
+          echo "NEW_VERSION=v${NEW_VERSION}" >> $GITHUB_ENV
           echo "New version: $NEW_VERSION"
           
           # Push changes and tag
