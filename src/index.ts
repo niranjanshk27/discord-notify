@@ -50,7 +50,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
     color: anyFailure ? FAILURE_COLOR : (allSuccess ? SUCCESS_COLOR : NEUTRAL_COLOR),
     title: inputs.title || `:rocket: ${repo}`,
     url: workflowUrl,
-    description: `### ${repo} ${inputs.release_version || ""}`
+    description: `### ${owner}/${repo} ${inputs.release_version || ""}`
   };
 
   // Build description according to platform
