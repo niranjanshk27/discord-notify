@@ -1,6 +1,6 @@
 # Discord Notify GitHub Action
 
-[![PR validation](https://github.com/niranjanshk27/actions/workflows/check-pr.yml/badge.svg)](https://github.com/niranjanshk27/actions/workflows/check-pr.yml)
+[![PR validation](https://github.com/niranjanshk27/discord-notify/actions/workflows/check-pr.yml/badge.svg)](https://github.com/niranjanshk27/discord-notify/actions/workflows/check-pr.yml)
 
 **Discord Notify** is a GitHub Action that sends build, release, or workflow notifications to a Discord channel using a webhook. It supports both simple text messages and rich embed messages, making it easy to keep your team updated on repository events directly in Discord.
 
