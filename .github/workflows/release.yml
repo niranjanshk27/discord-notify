@@ -58,8 +58,11 @@ jobs:
         uses: ./
         with:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TITLE: "New Release"
+          TITLE: "🚀 New version v$(node -p \"require('./package.json').version\")"
           EMBEDS: "true"
           CONTENT: "🚀 New version v$(node -p \"require('./package.json').version\") has been released!"
           RESULT: "success"
+          CHANGELOG: "true"
+          RELEASE_VERSION: "v$(node -p \"require('./package.json'.version)\")"
+          
 
