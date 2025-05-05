@@ -54,15 +54,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get Release Version
+        run: |
+          appVersion:$(node -p "require('./package.json').version")
+          echo "RELEASE_VERSION=v$(appVersion)" >> $GITHUB_ENV
+
       - name: Send Discord Notification
         uses: ./
         with:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TITLE: "🚀 New version v$(node -p \"require('./package.json').version\")"
+          TITLE: "🚀 New version ${{ env.RELEASE_VERSION }}"
           EMBEDS: "true"
-          CONTENT: "🚀 New version v$(node -p \"require('./package.json').version\") has been released!"
+          CONTENT: "🚀 New version ${{ env.RELEASE_VERSION }} has been released!"
           RESULT: "success"
           CHANGELOG: "true"
-          RELEASE_VERSION: "v$(node -p \"require('./package.json'.version)\")"
+          RELEASE_VERSION: "${{ env.RELEASE_VERSION }}"
           
 
