@@ -47,3 +47,4 @@ jobs:
             PR #${{ github.event.pull_request.number }} Check Results
             - 🧪 Test: ${{ steps.test-result.outcome }}
             - 🏗️ Build: ${{ steps.test-build.outcome }}
+          RESULT: ${{ steps.test-build.outcome }}
