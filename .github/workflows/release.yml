@@ -36,6 +36,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
 
       - name: Update Version and Create Tag
+        id: create-tag
         run: |
           # Get current version
           CURRENT_VERSION=$(node -p "require('./package.json').version")
@@ -63,7 +64,7 @@ jobs:
           TITLE: "🚀 New version ${{ env.NEW_VERSION }}"
           EMBEDS: "true"
           CONTENT: "🚀 New version ${{ env.NEW_VERSION }} has been released!"
-          RESULT: "success"
+          RESULT: ${{ steps.create-tag.outcome }}
           CHANGELOG: "true"
           RELEASE_VERSION: "${{ env.NEW_VERSION }}"
           
