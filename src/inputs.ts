@@ -30,6 +30,7 @@ export function getInputs(): Inputs {
     release_version: core.getInput("RELEASE_VERSION"),
     embeds: stringToBoolen(core.getInput("EMBEDS")),
     result: core.getInput("RESULT"),
+    content: core.getInput("CONTENT"),
   };
 
   if (!webhook) {

@@ -62,11 +62,11 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
     }
 
     if(inputs.ios_result) {
-      platformStatus += `iOS - ${iosSuccess ? ":white_check_mark:" : ":x: :no_entry:"}`
+      platformStatus += `iOS - ${iosSuccess ? ":white_check_mark:" : ":x: :no_entry:"}\n`
     }
 
     if (inputs.result) {
-      platformStatus += `Build - ${result ? ":white_check_mark:" : ":x: :no_entry:"}`
+      platformStatus += `Build - ${result ? ":white_check_mark:" : ":x: :no_entry:"}\n`
     }
 
     // Only add platform status if we have results
@@ -86,11 +86,12 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
     });
   }
 
+  // workflowUrl is given in title
   // Add workflowUrl
-  embed.fields.push({
-    name: "Workflow",
-    value: `[View Workflow Run](${workflowUrl})`,
-  })
+  // embed.fields.push({
+  //   name: "Workflow",
+  //   value: `[View Workflow Run](${workflowUrl})`,
+  // })
 
   // Add timestamp
   embed.timestamp = new Date().toISOString();
@@ -99,7 +100,7 @@ export function buildPayload(inputs: Readonly<Inputs>): Record<string, any> {
   let content = '';
 
   if (!inputs.embeds) {
-    content = `${inputs.content || "Internal Release"}: ${repo} ${inputs.release_version || ""}\n`
+    content = `${inputs.content || "Internal Release"}: ${owner}/${repo} ${inputs.release_version || ""}\n`
 
     if (inputs.android_result) {
       content += `Android: ${androidSuccess ? "Success ✅" : "Failed ❌"}\n`;
