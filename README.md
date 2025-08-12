@@ -14,7 +14,7 @@ To send a plain text message to your Discord channel:
 
 ```yaml
 - name: Send Discord Notification (Text Only)
-  uses: niranjanshk27/discord-announcement@main
+  uses: niranjanshk27/discord-notify@main
   with:
     WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     CONTENT: "✅ Build passed for PR #${{ github.event.pull_request.number }}"
@@ -34,7 +34,7 @@ To send a rich embed message (with color, title, and more):
 
 ```yaml
 - name: Send Discord Notification (With Embed)
-  uses: niranjanshk27/discord-announcement@main
+  uses: niranjanshk27/discord-notify@main
   with:
     WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     TITLE: "Build Status"
@@ -75,7 +75,7 @@ jobs:
 
       - name: Notify Discord (Embed)
         if: success()
-        uses: niranjanshk27/discord-announcement@main
+        uses: niranjanshk27/discord-notify@main
         with:
           WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           TITLE: "CI Passed"
