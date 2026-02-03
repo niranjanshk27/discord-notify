@@ -1,4 +1,4 @@
-# Discord Notify GitHub Action
+# Discord for GitHub Action
 
 [![PR validation](https://github.com/niranjanshk27/discord-notify/actions/workflows/check-pr.yml/badge.svg)](https://github.com/niranjanshk27/discord-notify/actions/workflows/check-pr.yml)
 
